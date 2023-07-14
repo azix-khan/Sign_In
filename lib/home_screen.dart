@@ -35,6 +35,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     // fontStyle: FontStyle.italic,
                     color: Colors.amber),
               ),
+              Text(
+                "I'm really happy to share \nthis beautiful Ui with you",
+                style: GoogleFonts.satisfy(
+                    textStyle: Theme.of(context).textTheme.displayLarge,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w700,
+                    // fontStyle: FontStyle.italic,
+                    color: Colors.pink),
+              ),
             ],
           ),
         ),
