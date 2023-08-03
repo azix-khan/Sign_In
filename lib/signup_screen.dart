@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login_page/home_screen.dart';
-import 'package:login_page/signup_screen.dart';
+import 'package:login_page/login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final formkey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  bool check = false;
+  final confirmPasswordController = TextEditingController();
+  String? gender;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Colors.pinkAccent, Colors.white],
+            colors: [Colors.teal, Colors.green],
             stops: [0.5, 0.5],
           ),
         ),
@@ -55,14 +57,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               'Birds',
                               style: TextStyle(
                                   fontSize: 30,
-                                  color: Colors.blue,
+                                  color: Colors.pink,
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
                               'eye',
                               style: TextStyle(
                                 fontSize: 20,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                             ),
                           ],
@@ -76,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Hi, I'am azix khan and this is \n my first practice of Login Ui.",
+                          "Hi, I'am azix khan and this is \n my first practice of Sign Up Ui.",
                           style: GoogleFonts.satisfy(
                             textStyle: Theme.of(context).textTheme.displayLarge,
                             fontSize: 20,
@@ -94,6 +96,43 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: TextFormField(
+                        controller: nameController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Required';
+                          }
+                          // String pattern =
+                          //     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                          // RegExp regex = new RegExp(pattern);
+                          // if (!(regex.hasMatch(value))) {
+                          //   return 'Invalid Email';
+                          // }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Name',
+                          fillColor: const Color(0xffF8F9FA),
+                          filled: true,
+                          prefixIcon: const Icon(Icons.badge_outlined),
+                          hoverColor: Colors.brown,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.blueAccent),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.pink),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        keyboardType: TextInputType.name,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: TextFormField(
                         controller: emailController,
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -101,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                           String pattern =
                               r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                          RegExp regex = new RegExp(pattern);
+                          RegExp regex = RegExp(pattern);
                           if (!(regex.hasMatch(value))) {
                             return 'Invalid Email';
                           }
@@ -110,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: 'Email',
                           fillColor: const Color(0xffF8F9FA),
                           filled: true,
-                          prefixIcon: const Icon(Icons.email),
+                          prefixIcon: const Icon(Icons.email_outlined),
                           hoverColor: Colors.brown,
                           focusedBorder: OutlineInputBorder(
                             borderSide:
@@ -138,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                           String pattern =
                               r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)";
-                          RegExp regex = new RegExp(pattern);
+                          RegExp regex = RegExp(pattern);
                           if (!(regex.hasMatch(value))) {
                             return 'Use spacial characters and numbers';
                           }
@@ -163,42 +202,91 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Checkbox(
-                              value: check,
-                              activeColor: Colors.green,
-                              onChanged: (bool? Value) {
-                                setState(() {
-                                  check = Value!;
-                                });
-                                const Text('Remember me');
-                              }),
-                          const Text(
-                            'Remember Me',
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                      child: TextFormField(
+                        controller: confirmPasswordController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Required';
+                          }
+                          String pattern =
+                              r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)";
+                          RegExp regex = RegExp(pattern);
+                          if (!(regex.hasMatch(value))) {
+                            return 'Use spacial characters and numbers';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Confirm Password',
+                          fillColor: const Color(0xffF8F9FA),
+                          filled: true,
+                          prefixIcon: const Icon(Icons.password),
+                          hoverColor: Colors.brown,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.blueAccent),
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                          const SizedBox(
-                            width: 60,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.pink),
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                          const Text(
-                            'Forgot Password ?',
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        ],
+                        ),
+                        keyboardType: TextInputType.visiblePassword,
                       ),
                     ),
+                    // const SizedBox(
+                    //   height: 10,
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     Expanded(
+                    //       child: RadioListTile(
+                    //         title: const Text('Male'),
+                    //         value: 'male',
+                    //         groupValue: gender,
+                    //         onChanged: (value) {
+                    //           setState(
+                    //             () {
+                    //               gender = value.toString();
+                    //             },
+                    //           );
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Expanded(
+                    //       child: RadioListTile(
+                    //         title: const Text('Female'),
+                    //         value: 'female',
+                    //         groupValue: gender,
+                    //         onChanged: (value) {
+                    //           setState(
+                    //             () {
+                    //               gender = value.toString();
+                    //             },
+                    //           );
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Expanded(
+                    //       child: RadioListTile(
+                    //         title: const Text('Other'),
+                    //         value: 'other',
+                    //         groupValue: gender,
+                    //         onChanged: (value) {
+                    //           setState(
+                    //             () {
+                    //               gender = value.toString();
+                    //             },
+                    //           );
+                    //         },
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     const SizedBox(
                       height: 40,
                     ),
@@ -212,19 +300,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       child: TextButton(
                         child: const Text(
-                          'Sign In',
+                          'Sign Up',
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         onPressed: () {
                           if (formkey.currentState!.validate()) {
                             String email = emailController.text.toString();
+                            String name = nameController.text.toString();
                             var password = passwordController.text.toString();
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: ((context) => HomeScreen(
-                                          name: null,
+                                          name: name,
                                           email: email,
                                           password: password,
                                         ))));
@@ -241,7 +330,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            'Dont have an account? ',
+                            'Have an account? ',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
@@ -252,18 +341,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (contexct) =>
-                                            const SignUpScreen()));
+                                        builder: (context) => LoginScreen()));
                               });
                             },
                             child: const Row(
                               children: [
                                 Text(
-                                  'Sign Up',
+                                  'Sign In',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
-                                      color: Colors.lightBlueAccent),
+                                      color: Colors.pink),
                                 ),
                               ],
                             ),

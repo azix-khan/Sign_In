@@ -1,10 +1,15 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
-  String? email;
-  double? password;
-  HomeScreen({super.key, required this.email, required this.password});
+  String? email, name;
+  var password;
+  HomeScreen(
+      {super.key,
+      required this.email,
+      required this.password,
+      required this.name});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -48,6 +53,22 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(
                 height: 20,
+              ),
+              Card(
+                elevation: 30,
+                child: Column(
+                  children: [
+                    Text(
+                      "Your Name: ${widget.name}",
+                      style: GoogleFonts.satisfy(
+                          textStyle: Theme.of(context).textTheme.displayMedium,
+                          // fontWeight: FontWeight.w700,
+                          fontSize: 20,
+                          // fontStyle: FontStyle.italic,
+                          color: Colors.purple),
+                    ),
+                  ],
+                ),
               ),
               Card(
                 elevation: 30,
