@@ -217,6 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         onPressed: () {
+                          sNB(context);
                           if (formkey.currentState!.validate()) {
                             String email = emailController.text.toString();
                             var password = passwordController.text.toString();
@@ -280,4 +281,15 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+}
+
+void sNB(BuildContext context) {
+  final snackBar = SnackBar(
+    content: const Text('Welcome to Birds Eye'),
+    action: SnackBarAction(
+      label: 'Okay',
+      onPressed: () {},
+    ),
+  );
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }

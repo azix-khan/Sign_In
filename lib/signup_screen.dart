@@ -305,6 +305,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         onPressed: () {
+                          sNB(context);
                           if (formkey.currentState!.validate()) {
                             String email = emailController.text.toString();
                             String name = nameController.text.toString();
