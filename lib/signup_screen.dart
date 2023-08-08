@@ -101,6 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           if (value!.isEmpty) {
                             return 'Required';
                           }
+                          return null;
                           // String pattern =
                           //     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                           // RegExp regex = new RegExp(pattern);
@@ -144,6 +145,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           if (!(regex.hasMatch(value))) {
                             return 'Invalid Email';
                           }
+                          return null;
                         },
                         decoration: InputDecoration(
                           hintText: 'Email',
@@ -181,6 +183,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           if (!(regex.hasMatch(value))) {
                             return 'Use spacial characters and numbers';
                           }
+                          return null;
                         },
                         decoration: InputDecoration(
                           hintText: 'Password',
@@ -218,6 +221,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           if (!(regex.hasMatch(value))) {
                             return 'Use spacial characters and numbers';
                           }
+                          return null;
                         },
                         decoration: InputDecoration(
                           hintText: 'Confirm Password',

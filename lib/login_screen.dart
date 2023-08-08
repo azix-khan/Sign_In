@@ -105,6 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (!(regex.hasMatch(value))) {
                             return 'Invalid Email';
                           }
+                          return null;
                         },
                         decoration: InputDecoration(
                           hintText: 'Email',
@@ -142,6 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (!(regex.hasMatch(value))) {
                             return 'Use spacial characters and numbers';
                           }
+                          return null;
                         },
                         decoration: InputDecoration(
                           hintText: 'Password',
